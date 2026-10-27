@@ -29,6 +29,10 @@ open -a Docker    # finish the first-run prompts, wait for the engine to start
 
 git clone https://github.com/collinrichman/products-app.git
 cd products-app
+
+# git hooks: lint, format, and tests run on every commit
+uv tool install pre-commit
+pre-commit install
 ```
 
 Docker Desktop can be replaced by a local Postgres 16 on port 5432.
@@ -87,6 +91,7 @@ curl -s localhost:8000/products
 
 - Backend is Python (FastAPI) instead of Java Spring Boot. I use python daily at my current job.
 - Built with Claude Code.
+- Lint: ruff (Python), ESLint, Prettier, and tsc (frontend). Run every hook on every file with `pre-commit run --all-files`. The pytest hook needs the database up.
 
 ## Contributing
 

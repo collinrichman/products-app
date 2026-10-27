@@ -14,7 +14,7 @@ React frontend, Python FastAPI backend, Postgres database. Runs locally.
 App:
 
 ```
-backend/            Python 3.15+, uv, FastAPI, uvicorn, psycopg (3), pytest
+backend/            Python 3.15+, uv, FastAPI, uvicorn, psycopg (3), pytest, ruff
   app/
     main.py         FastAPI app, routes
     db.py           connection + queries (plain SQL, no ORM)
@@ -22,16 +22,18 @@ backend/            Python 3.15+, uv, FastAPI, uvicorn, psycopg (3), pytest
     migrate.py      applies db/migrations/*.sql in order, idempotently
   tests/
     test_products.py   API tests against a real Postgres (docker) using TestClient
-  pyproject.toml
-frontend/           Vite + React + TypeScript (react-ts template; keep it small)
+  pyproject.toml    deps, ruff config
+frontend/           Vite + React + TypeScript (react-ts template; keep it small), ESLint, Prettier
   src/
     App.tsx         list + create form, fetch('/api/products')
     types.ts        `Product { id: number; name: string }`
   vite.config.ts    dev server on 3000, proxy /api -> http://localhost:8000
+  package.json      scripts: dev, build, lint (eslint), format (prettier --write src), typecheck (tsc -b)
 db/
   migrations/
     V001__create_products.sql
 docker-compose.yml  one service: postgres:16, db/user/password all "products", port 5432, volume pgdata
+.pre-commit-config.yaml  hooks on every commit: whitespace/YAML checks, ruff, pytest, eslint, prettier, tsc
 ```
 
 Repo tooling: `plugins/cr-interview/` (skills), `.claude-plugin/marketplace.json` (marketplace manifest), `.github/pull_request_template.md`, `.worktrees/` (gitignored task worktrees).
@@ -42,10 +44,13 @@ Design choices:
 - Tests hit a real Postgres via docker, not mocks.
 - Frontend is TypeScript (Vite react-ts template), one component, one `Product` type, no state library, no CSS beyond what Vite ships.
 - Vite proxies `/api` to the backend so no CORS config is needed.
+- Ruff lints and formats Python (replaces flake8, isort, black). ESLint and Prettier do the same for the frontend. `pre-commit` runs them plus pytest on each commit.
 
 ## Commands
 
 ```sh
+uv tool install pre-commit && pre-commit install         # git hooks, once per clone
+pre-commit run --all-files                               # all hooks, all files
 docker compose up -d db                                  # postgres
 cd backend && uv sync && uv run python -m app.migrate    # schema
 cd backend && uv run uvicorn app.main:app --reload --port 8000
@@ -72,7 +77,8 @@ Applies to markdown, code comments, issues, PR descriptions, and commit messages
 
 1. State the approach and, where relevant, the cost (query shape, index, complexity) in one or two sentences. Wait for a go-ahead on anything non-trivial.
 2. Tests first or alongside. Run them red, implement, run green. Small commits at each green step, on the task's feature branch.
-3. After each step, one line on what changed and why.
+3. Commits run the pre-commit hooks. If a commit fails, read the hook output, fix the cause (re-stage files the hooks auto-fixed), and commit again. Never use `--no-verify`.
+4. After each step, one line on what changed and why.
 
 ## Git and task workflow
 
