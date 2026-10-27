@@ -1,0 +1,48 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-merge-conflict
+      - id: check-added-large-files
+
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: ruff check
+        entry: uv run --project backend ruff check --fix
+        language: unsupported
+        types: [python]
+      - id: ruff-format
+        name: ruff format
+        entry: uv run --project backend ruff format
+        language: unsupported
+        types: [python]
+      - id: pytest
+        name: pytest (needs Postgres up)
+        entry: uv run --directory backend pytest -q
+        language: unsupported
+        files: ^(backend|db)/
+        pass_filenames: false
+
+      # Scripts live in frontend/package.json.
+      - id: frontend-lint
+        name: eslint
+        entry: npm --prefix frontend run lint
+        language: unsupported
+        files: ^frontend/src/
+        pass_filenames: false
+      - id: frontend-format
+        name: prettier
+        entry: npm --prefix frontend run format
+        language: unsupported
+        files: ^frontend/src/
+        pass_filenames: false
+      - id: frontend-typecheck
+        name: tsc
+        entry: npm --prefix frontend run typecheck
+        language: unsupported
+        files: ^frontend/src/
+        pass_filenames: false
