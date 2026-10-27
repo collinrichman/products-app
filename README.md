@@ -68,7 +68,7 @@ curl -s localhost:8000/products
 
 ## Notes
 
-- Backend is Python (FastAPI) instead of Java Spring Boot, the language I use daily.
+- Backend is Python (FastAPI) instead of Java Spring Boot. I use python daily at my current job.
 - Built with Claude Code.
 
 ## Contributing
