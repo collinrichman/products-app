@@ -85,14 +85,20 @@ curl -s localhost:8000/products
 
 ## Contributing
 
-This repo is also a Claude Code plugin marketplace (`cr-interview`) holding the skills used to build the app. Skills live in `plugins/cr-interview/skills/` and are named `cr-interview-*`.
+Work lands through PRs to `main`; direct pushes are blocked. This repo is also a Claude Code plugin marketplace (`cr-interview`) holding the skills used to work on it. Skills live in `plugins/cr-interview/skills/` and are named `cr-interview-*`.
 
-To load this repo's skills for a session, run from the repo root:
+To load them for a session, run from the repo root:
 
 ```sh
 claude --plugin-dir ./plugins/cr-interview
 ```
 
 Alternatively, install it as a marketplace with `/plugin marketplace add collinrichman/products-app`.
+
+Workflow, one Claude window per task:
+
+1. `cr-interview-create-todo`: add a task to the "Project backlog" issue (complex ones get a child issue).
+2. `cr-interview-implement-task`: give it an issue number or a description. It works in a git worktree (`.worktrees/<slug>`) on a branch off `origin/main`, tests, commits, pushes, and opens a PR to `main`.
+3. Merge the PR, then `cr-interview-complete-todo` to check off the todo. Remove the worktree with `git worktree remove .worktrees/<slug>`.
 
 To add a skill, ask Claude Code to use `cr-interview-skill-creator`.
