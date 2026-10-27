@@ -1,43 +1,39 @@
 # Products app
 
-A minimal end-to-end Products app: React frontend, Python FastAPI backend, Postgres database. List products and create a product. Nothing else.
-
-Layout:
+React frontend, Python FastAPI backend, Postgres database. List products and create a product.
 
 ```
-products-app/
-  backend/        FastAPI service (Python, uv)
-    app/          application code
-    tests/        pytest
-  frontend/       React + TypeScript app (Vite)
-  db/
-    migrations/   plain SQL, applied in order
-  docker-compose.yml   local Postgres
+backend/                  FastAPI service (Python, uv)
+frontend/                 React + TypeScript (Vite)
+db/migrations/            plain SQL, applied in order
+docker-compose.yml        local Postgres
+plugins/cr-interview/     Claude Code skills for working on this repo
+.claude-plugin/           plugin marketplace manifest
+.github/                  PR template
+CLAUDE.md                 rules for Claude Code
 ```
 
 ## Prerequisites
 
 - Python 3.12+ and [uv](https://docs.astral.sh/uv/) (`brew install python uv`)
 - Node 20+ and npm (`brew install node`)
-- Docker Desktop (for Postgres), or a local Postgres 16 on port 5432
+- Docker Desktop, or a local Postgres 16 on port 5432
 
 ## Database setup
 
-Start Postgres and create the `products` table:
-
 ```sh
 docker compose up -d db
-uv run --project backend python -m app.migrate   # applies db/migrations/*.sql in order
+uv run --project backend python -m app.migrate
 ```
 
-Or, without Docker, against a local Postgres:
+Without Docker:
 
 ```sh
 createdb products
 psql products -f db/migrations/V001__create_products.sql
 ```
 
-Connection string defaults to `postgresql://products:products@localhost:5432/products` and can be overridden with `DATABASE_URL`.
+`DATABASE_URL` defaults to `postgresql://products:products@localhost:5432/products`.
 
 ## Start backend
 
@@ -47,14 +43,9 @@ uv sync
 uv run uvicorn app.main:app --reload --port 8000
 ```
 
-API: `GET /products`, `POST /products` (body `{"name": "P1"}`). Interactive docs at http://localhost:8000/docs.
+API: `GET /products`, `POST /products` (body `{"name": "P1"}`). Docs at http://localhost:8000/docs.
 
-Tests:
-
-```sh
-cd backend
-uv run pytest
-```
+Tests: `cd backend && uv run pytest`
 
 ## Start frontend
 
@@ -64,13 +55,11 @@ npm install
 npm run dev
 ```
 
-Opens on http://localhost:3000 and proxies `/api` to the backend on port 8000.
+Serves http://localhost:3000 and proxies `/api` to port 8000.
 
 ## Verify
 
-Open http://localhost:3000, create a product named `P1`, and confirm it appears in the list. Refresh the page; it should still be there.
-
-Or from the terminal:
+Open http://localhost:3000, create a product named `P1`, and confirm it stays in the list after a refresh. Or:
 
 ```sh
 curl -s -X POST localhost:8000/products -H 'content-type: application/json' -d '{"name":"P1"}'
@@ -79,26 +68,24 @@ curl -s localhost:8000/products
 
 ## Notes
 
-- **Stack deviation:** backend is Python (FastAPI) instead of Java Spring Boot. Python is the language I use daily, so I'm most productive in it. The API shape, migration approach, and test layers are the same ideas, just in Python.
-- Built with Claude Code assistance. All code reviewed and understood.
-- Scope is intentionally minimal: create and list only, no update/delete, no styling, no production hardening.
+- Backend is Python (FastAPI) instead of Java Spring Boot, the language I use daily.
+- Built with Claude Code.
 
 ## Contributing
 
-Work lands through PRs to `main`. This repo is also a Claude Code plugin marketplace (`cr-interview`) holding the skills used to work on it. Skills live in `plugins/cr-interview/skills/` and are named `cr-interview-*`.
-
-To load them for a session, run from the repo root:
+This repo is also a Claude Code plugin marketplace (`cr-interview`). Install it with:
 
 ```sh
-claude --plugin-dir ./plugins/cr-interview
+/plugin marketplace add collinrichman/products-app
+/plugin install cr-interview@cr-interview
 ```
 
-Alternatively, install it as a marketplace with `/plugin marketplace add collinrichman/products-app`.
+Or load it from a checkout: `claude --plugin-dir ./plugins/cr-interview`.
 
-Workflow, one Claude window per task:
+Every change lands through a PR to `main`, one Claude window per task:
 
-1. `cr-interview-create-todo`: add a task to the "Project backlog" issue (complex ones get a child issue).
-2. `cr-interview-implement-task`: give it an issue number or a description. It works in a git worktree (`.worktrees/<slug>`) on a branch off `origin/main`, tests, commits, pushes, and opens a PR to `main`.
-3. `cr-interview-merge-pr`: merges the PR, removes the worktree, checks off the finished todos in the backlog, and closes their issues.
+1. `/cr-interview:cr-interview-create-todo`: add a task to the "Project backlog" issue.
+2. `/cr-interview:cr-interview-implement-task`: build it in a worktree (`.worktrees/<slug>`) and open a PR.
+3. `/cr-interview:cr-interview-merge-pr`: squash-merge, clean up, and check off the todo.
 
-To add a skill, ask Claude Code to use `cr-interview-skill-creator`.
+New skills: `/cr-interview:cr-interview-skill-creator`. Bump the plugin version in `.claude-plugin/marketplace.json` on any skill change.

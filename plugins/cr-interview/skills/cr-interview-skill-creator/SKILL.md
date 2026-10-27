@@ -36,7 +36,7 @@ description: Use when the user asks to "<phrase 1>", "<phrase 2>", or <situation
 
 ## Rules
 
-- Keep SKILL.md under 40 lines. Cut anything Claude already knows.
+- Follow the Writing rules in CLAUDE.md. Keep SKILL.md under 40 lines. Cut anything Claude already knows.
 - Write the description for triggering: 2-3 quoted user phrases, imperative "Use when...".
 - Write the body as imperative steps, with no second person.
 - Add `disable-model-invocation: true` to the frontmatter if the skill has side effects (commits, closing issues).

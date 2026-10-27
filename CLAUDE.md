@@ -1,6 +1,6 @@
 # Products app
 
-Minimal end-to-end Products app: React frontend, Python FastAPI backend, Postgres database. Runs locally.
+React frontend, Python FastAPI backend, Postgres database. Runs locally.
 
 ## Scope
 
@@ -10,6 +10,8 @@ Minimal end-to-end Products app: React frontend, Python FastAPI backend, Postgre
 - README has these six headings in this order: Prerequisites, Database setup, Start backend, Start frontend, Verify, Notes. Keep its commands true.
 
 ## Stack and layout
+
+App:
 
 ```
 backend/            Python 3.12+, uv, FastAPI, uvicorn, psycopg (3), pytest
@@ -32,11 +34,13 @@ db/
 docker-compose.yml  one service: postgres:16, db/user/password all "products", port 5432
 ```
 
+Repo tooling: `plugins/cr-interview/` (skills), `.claude-plugin/marketplace.json` (marketplace manifest), `.github/pull_request_template.md`, `.worktrees/` (gitignored task worktrees).
+
 Design choices:
 - Plain SQL with psycopg, no ORM. Two queries do not justify SQLAlchemy, and plain SQL is easier to extend.
-- Migrations are numbered SQL files applied by a tiny Python runner that tracks applied files in a `schema_migrations` table. This is the Flyway model, hand-rolled because it is ~30 lines and two files do not justify a JVM or Docker step in the README. Files use Flyway's `V<n>__<name>.sql` naming so swapping in real Flyway later is a rename of nothing. Adding a column is: new file, run migrate. Additive migrations (nullable column) are backward compatible, so code can roll back without the schema; drops and renames take two deploys.
-- Tests hit a real Postgres via docker, not mocks. Testing the SQL is the point.
-- Frontend is TypeScript (Vite react-ts template), one component, one `Product` type, no state library, no CSS beyond what Vite ships. TypeScript costs nothing at this size.
+- Migrations are numbered SQL files applied by a tiny Python runner that tracks applied files in a `schema_migrations` table. Flyway-style, hand-rolled in ~30 lines. Files use Flyway's `V<n>__<name>.sql` naming so Flyway can replace the runner later. Adding a column is: new file, run migrate. Additive migrations (nullable column) are backward compatible, so code can roll back without the schema; drops and renames take two deploys.
+- Tests hit a real Postgres via docker, not mocks.
+- Frontend is TypeScript (Vite react-ts template), one component, one `Product` type, no state library, no CSS beyond what Vite ships.
 - Vite proxies `/api` to the backend so no CORS config is needed.
 
 ## Commands
@@ -49,14 +53,28 @@ cd backend && uv run pytest
 cd frontend && npm install && npm run dev                # http://localhost:3000
 ```
 
+## Writing
+
+Applies to markdown, code comments, issues, PR descriptions, and commit messages.
+
+- Short. Nothing is a long read.
+- State what. Add how or why only when not obvious.
+- No filler or extrapolation ("Nothing else.", "we chose not to...").
+- Describe what exists. Do not state what is missing, not done, or planned.
+
+## Code
+
+- Clean, readable, DRY. A human should follow it at a glance.
+- Simple classes and functions that do one job. No cleverness, no speculative abstraction.
+- Keep the existing patterns: plain SQL in `db.py`, pydantic at the edge, routes thin.
+
 ## Working rules
 
 1. State the approach and, where relevant, the cost (query shape, index, complexity) in one or two sentences. Wait for a go-ahead on anything non-trivial.
 2. Tests first or alongside. Run them red, implement, run green. Small commits at each green step, on the task's feature branch.
 3. After each step, one line on what changed and why.
-4. Readable over clever. Keep the existing patterns: plain SQL in `db.py`, pydantic at the edge, routes thin.
-5. Do not add dependencies without asking.
-6. Production concerns: logging (structured, request id), metrics (request count and latency per route), error handling (4xx vs 5xx, no stack traces to clients), testing layers (unit on pure functions, API tests against real Postgres, one e2e), CI (lint, test, build on PR), deploy (container image, rolling deploy), rollback (previous image; migrations must be backward compatible for one version).
+4. Do not add dependencies without asking.
+5. Production concerns: logging (structured, request id), metrics (request count and latency per route), error handling (4xx vs 5xx, no stack traces to clients), testing layers (unit on pure functions, API tests against real Postgres, one e2e), CI (lint, test, build on PR), deploy (container image, rolling deploy), rollback (previous image; migrations must be backward compatible for one version).
 
 ## Do not
 
