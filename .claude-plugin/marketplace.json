@@ -1,0 +1,22 @@
+{
+  "name": "cr-interview",
+  "owner": {
+    "name": "Collin Richman"
+  },
+  "metadata": {
+    "description": "Skills used while building and extending the products app",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "cr-interview",
+      "source": "./plugins/cr-interview",
+      "description": "Skills for the products-app pairing session",
+      "version": "1.0.0",
+      "author": {
+        "name": "Collin Richman"
+      },
+      "keywords": ["interview", "pairing", "workflow"]
+    }
+  ]
+}
