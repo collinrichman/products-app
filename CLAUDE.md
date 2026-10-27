@@ -14,7 +14,7 @@ React frontend, Python FastAPI backend, Postgres database. Runs locally.
 App:
 
 ```
-backend/            Python 3.12+, uv, FastAPI, uvicorn, psycopg (3), pytest
+backend/            Python 3.15+, uv, FastAPI, uvicorn, psycopg (3), pytest
   app/
     main.py         FastAPI app, routes
     db.py           connection + queries (plain SQL, no ORM)

@@ -21,7 +21,7 @@ macOS, starting from a clean machine:
 # Homebrew (also installs git via the Xcode command line tools)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# Python 3.12+, uv, Node 20+, psql client, Docker Desktop
+# Python 3.15+, uv, Node 20+, psql client, Docker Desktop
 brew install python uv node libpq
 brew link --force libpq
 brew install --cask docker
