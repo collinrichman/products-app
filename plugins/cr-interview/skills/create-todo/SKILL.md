@@ -1,5 +1,5 @@
 ---
-name: cr-interview-create-todo
+name: create-todo
 description: Use when the user asks to "add a todo", "create a todo", "add to the backlog", or "prioritize a todo". Adds a todo to the Project backlog issue, with a child issue when the todo is complex.
 disable-model-invocation: true
 ---

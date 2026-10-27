@@ -1,5 +1,5 @@
 ---
-name: cr-interview-db-query
+name: db-query
 description: Use when the user asks to "query the database", "how many products", "what's in the db", or asks a question the data answers. Answers it with read-only SQL against the local Postgres.
 ---
 
@@ -19,4 +19,4 @@ Answer a question about the data with read-only SQL.
 
 ## Rules
 
-- Read only. Never run INSERT, UPDATE, DELETE, or DDL, even if asked; point to `cr-interview-db-migration` for schema changes.
+- Read only. Never run INSERT, UPDATE, DELETE, or DDL, even if asked; point to `/cr-interview:db-migration` for schema changes.

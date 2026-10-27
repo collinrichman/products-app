@@ -1,5 +1,5 @@
 ---
-name: cr-interview-db-migration
+name: db-migration
 description: Use when the user asks to "add a column", "add a table", "write a migration", or a task changes the database schema. Writes the next db/migrations SQL file, gets approval, applies it, and runs the tests.
 disable-model-invocation: true
 ---

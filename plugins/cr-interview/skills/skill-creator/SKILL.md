@@ -1,5 +1,5 @@
 ---
-name: cr-interview-skill-creator
+name: skill-creator
 description: Use when the user asks to "create a skill", "add a skill", "make a skill for X", or "save this as a skill". Scaffolds a short, focused skill in this repo's cr-interview plugin.
 ---
 
@@ -10,7 +10,7 @@ Create one simple skill in `plugins/cr-interview/skills/`.
 ## Steps
 
 1. Ask what the skill does and what the user would say to trigger it. Skip questions already answered.
-2. Name it `cr-interview-<verb-noun>` in kebab-case (e.g. `cr-interview-create-todo`).
+2. Name it `<verb-noun>` in kebab-case (e.g. `create-todo`); it is invoked as `/cr-interview:<name>`.
 3. Create `plugins/cr-interview/skills/<name>/SKILL.md` using the template below.
 4. Run `claude plugin validate .` from the repo root and fix any errors.
 5. Bump the plugin `version` in `.claude-plugin/marketplace.json` (minor for a new skill). Installed copies refresh only when it changes.

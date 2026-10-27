@@ -1,5 +1,5 @@
 ---
-name: cr-interview-merge-pr
+name: merge-pr
 description: Use when the user asks to "merge the PR", "approve and merge", "merge #7", "complete a todo", or "check off a todo". Merges a PR to main, then checks off the matching todos in the Project backlog and closes their issues.
 disable-model-invocation: true
 ---
