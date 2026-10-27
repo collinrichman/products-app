@@ -31,7 +31,7 @@ frontend/           Vite + React + TypeScript (react-ts template; keep it small)
 db/
   migrations/
     V001__create_products.sql
-docker-compose.yml  one service: postgres:16, db/user/password all "products", port 5432
+docker-compose.yml  one service: postgres:16, db/user/password all "products", port 5432, volume pgdata
 ```
 
 Repo tooling: `plugins/cr-interview/` (skills), `.claude-plugin/marketplace.json` (marketplace manifest), `.github/pull_request_template.md`, `.worktrees/` (gitignored task worktrees).

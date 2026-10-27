@@ -1,0 +1,20 @@
+name: products
+
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: products
+      POSTGRES_PASSWORD: products
+      POSTGRES_DB: products
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "products"]
+      interval: 2s
+      retries: 15
+
+volumes:
+  pgdata:
