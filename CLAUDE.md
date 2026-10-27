@@ -1,6 +1,6 @@
 # Products app
 
-React frontend, Python FastAPI backend, Postgres database. Runs locally. Only the scaffold exists so far; the app code is built through tasks.
+React frontend, Python FastAPI backend, Postgres database. Runs locally.
 
 ## Scope
 
@@ -60,6 +60,7 @@ Applies to markdown, code comments, issues, PR descriptions, and commit messages
 - Short. Nothing is a long read.
 - State what. Add how or why only when not obvious.
 - No filler or extrapolation ("Nothing else.", "we chose not to...").
+- Describe what exists. Do not state what is missing, not done, or planned.
 
 ## Code
 

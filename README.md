@@ -2,8 +2,6 @@
 
 React frontend, Python FastAPI backend, Postgres database. List products and create a product.
 
-Only the scaffold exists so far: `backend/`, `frontend/` and `db/` are empty, so the commands below do not run yet.
-
 ```
 backend/                  FastAPI service (Python, uv)
 frontend/                 React + TypeScript (Vite)
