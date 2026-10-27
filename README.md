@@ -103,7 +103,7 @@ Every change lands through a PR to `main`, one Claude window per task:
 
 1. `/cr-interview:cr-interview-create-todo`: add a task to the "Project backlog" issue.
 2. `/cr-interview:cr-interview-implement-task`: build it in a worktree (`.worktrees/<slug>`) and open a PR.
-3. `/cr-interview:cr-interview-merge-pr`: squash-merge, clean up, and check off the todo.
+3. `/cr-interview:cr-interview-merge-pr`: squash-merge, clean up, check off the todo, and pull `main`.
 
 Database:
 
