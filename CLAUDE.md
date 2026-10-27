@@ -76,13 +76,6 @@ Applies to markdown, code comments, issues, PR descriptions, and commit messages
 4. Do not add dependencies without asking.
 5. Production concerns: logging (structured, request id), metrics (request count and latency per route), error handling (4xx vs 5xx, no stack traces to clients), testing layers (unit on pure functions, API tests against real Postgres, one e2e), CI (lint, test, build on PR), deploy (container image, rolling deploy), rollback (previous image; migrations must be backward compatible for one version).
 
-## Do not
-
-- Do not implement update or delete unless a task asks.
-- Do not add CSS, auth, Docker for the app itself, or production hardening.
-- Do not put any company name or branding anywhere in the code or repo.
-- Do not touch anything outside this folder.
-
 ## Git and task workflow
 
 - Tasks live in the "Project backlog" GitHub issue. Use `cr-interview-create-todo` to add one, `cr-interview-implement-task` to build one (commits, pushes, opens a PR), `cr-interview-merge-pr` to merge it and check off the todo.
