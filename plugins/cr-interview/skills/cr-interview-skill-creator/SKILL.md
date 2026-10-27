@@ -13,7 +13,8 @@ Create one simple skill in `plugins/cr-interview/skills/`.
 2. Name it `cr-interview-<verb-noun>` in kebab-case (e.g. `cr-interview-create-todo`).
 3. Create `plugins/cr-interview/skills/<name>/SKILL.md` using the template below.
 4. Run `claude plugin validate .` from the repo root and fix any errors.
-5. Commit the new skill.
+5. Bump the plugin `version` in `.claude-plugin/marketplace.json` (minor for a new skill). Installed copies refresh only when it changes.
+6. Commit the new skill.
 
 ## Template
 
@@ -41,3 +42,4 @@ description: Use when the user asks to "<phrase 1>", "<phrase 2>", or <situation
 - Add `disable-model-invocation: true` to the frontmatter if the skill has side effects (commits, closing issues).
 - Add `references/` or `scripts/` only when a skill truly needs them.
 - Do not add a version to `plugin.json`. Versions live in `.claude-plugin/marketplace.json`.
+- Bump that version on every skill add, update, or delete.
