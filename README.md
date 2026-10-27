@@ -79,20 +79,26 @@ curl -s localhost:8000/products
 
 ## Notes
 
-- **Stack deviation:** backend is Python (FastAPI) instead of Java Spring Boot. Python is the language I use daily; for a live pairing session I'd rather be productive in it than re-learn framework conventions on the clock. The API shape, migration approach, and test layers are the same ideas, just in Python.
-- Built with Claude Code assistance. All code reviewed and understood; I'll be extending it live.
-- Scope is intentionally minimal per the brief: create and list only, no update/delete, no styling, no production hardening.
+- **Stack deviation:** backend is Python (FastAPI) instead of Java Spring Boot. Python is the language I use daily, so I'm most productive in it. The API shape, migration approach, and test layers are the same ideas, just in Python.
+- Built with Claude Code assistance. All code reviewed and understood.
+- Scope is intentionally minimal: create and list only, no update/delete, no styling, no production hardening.
 
 ## Contributing
 
-This repo is also a Claude Code plugin marketplace (`cr-interview`) holding the skills used to build the app. Skills live in `plugins/cr-interview/skills/` and are named `cr-interview-*`.
+Work lands through PRs to `main`. This repo is also a Claude Code plugin marketplace (`cr-interview`) holding the skills used to work on it. Skills live in `plugins/cr-interview/skills/` and are named `cr-interview-*`.
 
-To load this repo's skills for a session, run from the repo root:
+To load them for a session, run from the repo root:
 
 ```sh
 claude --plugin-dir ./plugins/cr-interview
 ```
 
 Alternatively, install it as a marketplace with `/plugin marketplace add collinrichman/products-app`.
+
+Workflow, one Claude window per task:
+
+1. `cr-interview-create-todo`: add a task to the "Project backlog" issue (complex ones get a child issue).
+2. `cr-interview-implement-task`: give it an issue number or a description. It works in a git worktree (`.worktrees/<slug>`) on a branch off `origin/main`, tests, commits, pushes, and opens a PR to `main`.
+3. `cr-interview-merge-pr`: merges the PR, removes the worktree, checks off the finished todos in the backlog, and closes their issues.
 
 To add a skill, ask Claude Code to use `cr-interview-skill-creator`.
