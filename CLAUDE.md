@@ -73,8 +73,6 @@ Applies to markdown, code comments, issues, PR descriptions, and commit messages
 1. State the approach and, where relevant, the cost (query shape, index, complexity) in one or two sentences. Wait for a go-ahead on anything non-trivial.
 2. Tests first or alongside. Run them red, implement, run green. Small commits at each green step, on the task's feature branch.
 3. After each step, one line on what changed and why.
-4. Do not add dependencies without asking.
-5. Production concerns: logging (structured, request id), metrics (request count and latency per route), error handling (4xx vs 5xx, no stack traces to clients), testing layers (unit on pure functions, API tests against real Postgres, one e2e), CI (lint, test, build on PR), deploy (container image, rolling deploy), rollback (previous image; migrations must be backward compatible for one version).
 
 ## Git and task workflow
 
