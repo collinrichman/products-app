@@ -68,4 +68,5 @@ cd frontend && npm install && npm run dev                # http://localhost:3000
 ## Git and task workflow
 
 - Tasks live in the "Project backlog" GitHub issue. Use `cr-interview-create-todo` to add one, `cr-interview-implement-task` to build one (commits, pushes, opens a PR), `cr-interview-merge-pr` to merge it and check off the todo.
+- Increment the plugin `version` in `.claude-plugin/marketplace.json` when adding, updating, or deleting any skill; installed copies refresh only when it changes.
 - `implement-task` works in a git worktree at `.worktrees/<slug>` on a branch off `origin/main`, so several Claude windows can work in parallel. Never commit directly to `main`; every change lands via a PR targeting `main`.
