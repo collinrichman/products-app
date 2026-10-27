@@ -99,6 +99,6 @@ Workflow, one Claude window per task:
 
 1. `cr-interview-create-todo`: add a task to the "Project backlog" issue (complex ones get a child issue).
 2. `cr-interview-implement-task`: give it an issue number or a description. It works in a git worktree (`.worktrees/<slug>`) on a branch off `origin/main`, tests, commits, pushes, and opens a PR to `main`.
-3. Merge the PR, then `cr-interview-complete-todo` to check off the todo. Remove the worktree with `git worktree remove .worktrees/<slug>`.
+3. `cr-interview-merge-pr`: merges the PR, removes the worktree, checks off the finished todos in the backlog, and closes their issues.
 
 To add a skill, ask Claude Code to use `cr-interview-skill-creator`.

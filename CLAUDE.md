@@ -96,6 +96,6 @@ Likely extensions to be ready for: add a column (price, sku) with a migration; `
 
 ## Working in this repo (outside the live session)
 
-- Tasks live in the "Project backlog" GitHub issue. Use `cr-interview-create-todo` to add one, `cr-interview-implement-task` to build one, `cr-interview-complete-todo` to check it off after merge.
+- Tasks live in the "Project backlog" GitHub issue. Use `cr-interview-create-todo` to add one, `cr-interview-implement-task` to build one (ends with a PR), `cr-interview-merge-pr` to merge it and check off the todo.
 - `implement-task` works in a git worktree at `.worktrees/<slug>` on a branch off `origin/main`, so several Claude windows can work in parallel. Never commit directly to `main`; every change lands via a PR targeting `main`.
 - Commit and push are part of `implement-task`; there is no separate commit-push skill.
