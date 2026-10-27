@@ -85,7 +85,7 @@ curl -s localhost:8000/products
 
 ## Contributing
 
-Work lands through PRs to `main`; direct pushes are blocked. This repo is also a Claude Code plugin marketplace (`cr-interview`) holding the skills used to work on it. Skills live in `plugins/cr-interview/skills/` and are named `cr-interview-*`.
+Work lands through PRs to `main`. This repo is also a Claude Code plugin marketplace (`cr-interview`) holding the skills used to work on it. Skills live in `plugins/cr-interview/skills/` and are named `cr-interview-*`.
 
 To load them for a session, run from the repo root:
 

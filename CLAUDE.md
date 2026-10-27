@@ -96,7 +96,6 @@ Likely extensions to be ready for: add a column (price, sku) with a migration; `
 
 ## Git and task workflow (always, including the live session)
 
-- Tasks live in the "Project backlog" GitHub issue. Use `cr-interview-create-todo` to add one, `cr-interview-implement-task` to build one (ends with a PR), `cr-interview-merge-pr` to merge it and check off the todo.
+- Tasks live in the "Project backlog" GitHub issue. Use `cr-interview-create-todo` to add one, `cr-interview-implement-task` to build one (commits, pushes, opens a PR), `cr-interview-merge-pr` to merge it and check off the todo.
 - `implement-task` works in a git worktree at `.worktrees/<slug>` on a branch off `origin/main`, so several Claude windows can work in parallel. Never commit directly to `main`; every change lands via a PR targeting `main`.
-- Commit and push are part of `implement-task`; there is no separate commit-push skill.
-- This applies in the live session too: after Collin's go-ahead on an extension, run it through `implement-task` (worktree, tests, PR) and `merge-pr`. Do not commit to `main` in the room.
+- The same workflow applies in the live session: after Collin's go-ahead on an extension, run it through `implement-task` and `merge-pr`.
