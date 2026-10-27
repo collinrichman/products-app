@@ -15,16 +15,33 @@ CLAUDE.md                 rules for Claude Code
 
 ## Prerequisites
 
-- Python 3.12+ and [uv](https://docs.astral.sh/uv/) (`brew install python uv`)
-- Node 20+ and npm (`brew install node`)
-- Docker Desktop, or a local Postgres 16 on port 5432
+macOS, starting from a clean machine:
+
+```sh
+# Homebrew (also installs git via the Xcode command line tools)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Python 3.12+, uv, Node 20+, psql client, Docker Desktop
+brew install python uv node libpq
+brew link --force libpq
+brew install --cask docker
+open -a Docker    # finish the first-run prompts, wait for the engine to start
+
+git clone https://github.com/collinrichman/products-app.git
+cd products-app
+```
+
+Docker Desktop can be replaced by a local Postgres 16 on port 5432.
 
 ## Database setup
 
 ```sh
-docker compose up -d db
+docker compose up -d --wait db
+psql postgresql://products:products@localhost:5432/products -c '\l'
 uv run --project backend python -m app.migrate
 ```
+
+`db` is Postgres 16 on port 5432, user, password, and database all `products`, data in the `pgdata` volume. `docker compose down -v` deletes the data.
 
 Without Docker:
 
