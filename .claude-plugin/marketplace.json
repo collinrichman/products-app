@@ -11,12 +11,12 @@
     {
       "name": "cr-interview",
       "source": "./plugins/cr-interview",
-      "description": "Skills for the products-app pairing session",
+      "description": "Skills for working on products-app",
       "version": "1.0.0",
       "author": {
         "name": "Collin Richman"
       },
-      "keywords": ["interview", "pairing", "workflow"]
+      "keywords": ["workflow"]
     }
   ]
 }

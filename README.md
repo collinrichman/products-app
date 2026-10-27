@@ -79,9 +79,9 @@ curl -s localhost:8000/products
 
 ## Notes
 
-- **Stack deviation:** backend is Python (FastAPI) instead of Java Spring Boot. Python is the language I use daily; for a live pairing session I'd rather be productive in it than re-learn framework conventions on the clock. The API shape, migration approach, and test layers are the same ideas, just in Python.
-- Built with Claude Code assistance. All code reviewed and understood; I'll be extending it live.
-- Scope is intentionally minimal per the brief: create and list only, no update/delete, no styling, no production hardening.
+- **Stack deviation:** backend is Python (FastAPI) instead of Java Spring Boot. Python is the language I use daily, so I'm most productive in it. The API shape, migration approach, and test layers are the same ideas, just in Python.
+- Built with Claude Code assistance. All code reviewed and understood.
+- Scope is intentionally minimal: create and list only, no update/delete, no styling, no production hardening.
 
 ## Contributing
 
