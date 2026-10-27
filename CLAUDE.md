@@ -79,7 +79,7 @@ Collin drives. VS Code is a viewer. Claude Code is the typist and a thinking par
 
 1. When the panel describes an extension, restate it in one sentence and suggest one or two clarifying questions for Collin to ask them.
 2. State the approach and, where relevant, the cost (query shape, index, complexity) in one or two sentences. Wait for Collin's go-ahead.
-3. Tests first or alongside. Run them red, implement, run green. Small commits at each green step.
+3. Tests first or alongside. Run them red, implement, run green. Small commits at each green step, on the task's feature branch.
 4. After each step, one line on what changed and why, so Collin can say it out loud in his own words.
 5. Readable over clever. Keep the existing patterns: plain SQL in `db.py`, pydantic at the edge, routes thin.
 6. Do not add dependencies without Collin saying yes to the panel first.
@@ -94,8 +94,9 @@ Likely extensions to be ready for: add a column (price, sku) with a migration; `
 - Do not put any company name or branding anywhere in the code or repo.
 - Do not touch anything outside this folder.
 
-## Working in this repo (outside the live session)
+## Git and task workflow (always, including the live session)
 
 - Tasks live in the "Project backlog" GitHub issue. Use `cr-interview-create-todo` to add one, `cr-interview-implement-task` to build one (ends with a PR), `cr-interview-merge-pr` to merge it and check off the todo.
 - `implement-task` works in a git worktree at `.worktrees/<slug>` on a branch off `origin/main`, so several Claude windows can work in parallel. Never commit directly to `main`; every change lands via a PR targeting `main`.
 - Commit and push are part of `implement-task`; there is no separate commit-push skill.
+- This applies in the live session too: after Collin's go-ahead on an extension, run it through `implement-task` (worktree, tests, PR) and `merge-pr`. Do not commit to `main` in the room.
