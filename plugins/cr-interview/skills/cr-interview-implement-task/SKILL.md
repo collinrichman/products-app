@@ -18,3 +18,8 @@ Take one task (a GitHub issue number or ad-hoc text) from nothing to an open PR,
 6. Review `git diff` for secrets, debug leftovers, company branding, and unrelated changes. Commit in logical commits, staging files by name. End messages with the attribution lines from the session's system-reminder.
 7. Run `git push -u origin <branch>` (never force), then `gh pr create --base main` with a short what/why/how body and `Closes #<n>` for an issue. End the body with the PR attribution line from the system-reminder.
 8. Report only the PR URL and a what/why/how overview that reads in 30 seconds, plus anything the user must decide or do. Do not remove the worktree; the user cleans up after merge with `git worktree remove .worktrees/<slug>`.
+
+## Rules
+
+- Never commit or push to `main`. Push only the feature branch, and stop if `git branch --show-current` says `main`.
+- Every change reaches `main` through a PR, never a direct push, even for one-line or docs changes.

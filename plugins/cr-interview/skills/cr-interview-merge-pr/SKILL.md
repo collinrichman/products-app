@@ -17,3 +17,8 @@ Merge a PR to `main`, clean up its worktree, and mark the finished todos complet
 5. Find finished work: the issues named by `Closes #` in the PR body, plus any todo whose linked `#<child>` is now closed. Change `- [ ]` to `- [x]` on those lines only. Write the body back with `gh issue edit <p> --body-file <file>`, using a file in the scratchpad.
 6. For each linked child issue still open, confirm its **Done when:** is met, tick its checklist, and run `gh issue close <child> --comment "Done in #<pr>."`.
 7. Run `git fetch origin` and report in a few lines: the merge result, the todos checked off, and the issues closed.
+
+## Rules
+
+- Merge only with `gh pr merge --squash`. Never use merge commits or rebase, and never push to `main` directly.
+- Never force push or delete `main`.
