@@ -1,7 +1,7 @@
 import psycopg
 import pytest
 
-from app.migrate import DATABASE_URL
+from app.db import DATABASE_URL
 
 
 def test_products_rejects_blank_name():

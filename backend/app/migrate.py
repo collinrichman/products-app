@@ -1,11 +1,9 @@
-import os
 from pathlib import Path
 
 import psycopg
 
-DATABASE_URL = os.environ.get(
-    "DATABASE_URL", "postgresql://products:products@localhost:5432/products"
-)
+from app.db import DATABASE_URL
+
 MIGRATIONS_DIR = Path(__file__).resolve().parents[2] / "db" / "migrations"
 
 
