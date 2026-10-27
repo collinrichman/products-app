@@ -38,7 +38,7 @@ Docker Desktop can be replaced by a local Postgres 16 on port 5432.
 ```sh
 docker compose up -d --wait db
 psql postgresql://products:products@localhost:5432/products -c '\l'
-uv run --project backend python -m app.migrate
+uv run --directory backend python -m app.migrate
 ```
 
 `db` is Postgres 16 on port 5432, user, password, and database all `products`, data in the `pgdata` volume. `docker compose down -v` deletes the data.
