@@ -21,7 +21,7 @@ macOS, starting from a clean machine:
 # Homebrew (also installs git via the Xcode command line tools)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# Python 3.15+, uv, Node 20+, psql client, Docker Desktop
+# Python 3.15+, uv, Node 20.19+, psql client, Docker Desktop
 brew install python uv node libpq
 brew link --force libpq
 brew install --cask docker
@@ -91,7 +91,7 @@ curl -s localhost:8000/products
 
 - Backend is Python (FastAPI) instead of Java Spring Boot. I use python daily at my current job.
 - Built with Claude Code.
-- Lint: ruff (Python), ESLint, Prettier, and tsc (frontend). Run every hook on every file with `pre-commit run --all-files`. The pytest hook needs the database up.
+- Lint: ruff (Python), oxlint, Prettier, and tsc (frontend). Run every hook on every file with `pre-commit run --all-files`. The pytest hook needs the database up.
 
 ## Contributing
 
