@@ -42,6 +42,12 @@ uv run --directory backend python -m app.migrate
 
 `db` is Postgres 16 on port 5432, user, password, and database all `products`, data in the `pgdata` volume. `docker compose down -v` deletes the data.
 
+Optional dev data, 300 products in shared-prefix families (`Screw`, `Screwdriver`, ...) for type-ahead testing. Safe to rerun:
+
+```sh
+uv run --directory backend python -m app.seed
+```
+
 `DATABASE_URL` defaults to `postgresql://products:products@localhost:5432/products`.
 
 ## Start backend
