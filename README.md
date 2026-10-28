@@ -21,7 +21,7 @@ macOS, starting from a clean machine:
 # Homebrew (also installs git via the Xcode command line tools)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# Python 3.15+, uv, Node 20.19+, psql client, Docker Desktop
+# Python 3.15+, uv, Node 20.19+, psql client, Docker Desktop (runs Postgres 16)
 brew install python uv node libpq
 brew link --force libpq
 brew install --cask docker
@@ -35,8 +35,6 @@ uv tool install pre-commit
 pre-commit install
 ```
 
-Docker Desktop can be replaced by a local Postgres 16 on port 5432.
-
 ## Database setup
 
 ```sh
@@ -46,13 +44,6 @@ uv run --directory backend python -m app.migrate
 ```
 
 `db` is Postgres 16 on port 5432, user, password, and database all `products`, data in the `pgdata` volume. `docker compose down -v` deletes the data.
-
-Without Docker:
-
-```sh
-createdb products
-psql products -f db/migrations/V001__create_products.sql
-```
 
 `DATABASE_URL` defaults to `postgresql://products:products@localhost:5432/products`.
 
@@ -91,7 +82,8 @@ curl -s localhost:8000/products
 
 ## Notes
 
-- Backend is Python (FastAPI) instead of Java Spring Boot. I use python daily at my current job.
+- Backend is Python (FastAPI) instead of Java Spring Boot. I use Python daily at my current job.
+- For Java reviewers: FastAPI routes ≈ Spring Boot controllers, pydantic models ≈ DTOs, and `app.migrate` ≈ Flyway (files use Flyway's `V<n>__<name>.sql` naming).
 - Built with Claude Code.
 - Lint: ruff (Python), oxlint, Prettier, and tsc (frontend). Hooks also run pytest and Vitest. Run every hook on every file with `pre-commit run --all-files`. The pytest hook needs the database up.
 
