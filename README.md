@@ -29,19 +29,16 @@ open -a Docker    # finish the first-run prompts, wait for the engine to start
 
 git clone https://github.com/collinrichman/products-app.git
 cd products-app
-
-# git hooks: lint, format, and tests run on every commit
-uv tool install pre-commit
-pre-commit install
 ```
 
 Docker Desktop can be replaced by a local Postgres 16 on port 5432.
 
 ## Database setup
 
+In Claude Code, `/cr-interview:start-application` does this section and the next two in one step: it starts Postgres, migrates, starts both servers in the background, and prints the app URL and log paths. Ask Claude to "stop the app" to stop the servers. The manual steps follow.
+
 ```sh
 docker compose up -d --wait db
-psql postgresql://products:products@localhost:5432/products -c '\l'
 uv run --directory backend python -m app.migrate
 ```
 
@@ -58,9 +55,10 @@ psql products -f db/migrations/V001__create_products.sql
 
 ## Start backend
 
+In its own terminal, from the repo root:
+
 ```sh
 cd backend
-uv sync
 uv run uvicorn app.main:app --reload --port 8000
 ```
 
@@ -70,13 +68,15 @@ Tests: `cd backend && uv run pytest`
 
 ## Start frontend
 
+In a second terminal, from the repo root:
+
 ```sh
 cd frontend
 npm install
 npm run dev
 ```
 
-Serves http://localhost:3000 and proxies `/api` to port 8000.
+Serves http://localhost:3000 and proxies `/api` to port 8000 (`API_URL` overrides the target).
 
 Tests: `cd frontend && npm test -- --run`
 
@@ -106,11 +106,22 @@ This repo is also a Claude Code plugin marketplace (`cr-interview`). Install it 
 
 Or load it from a checkout: `claude --plugin-dir ./plugins/cr-interview`.
 
+Git hooks run lint, format, and tests on every commit. Install them once per clone:
+
+```sh
+uv tool install pre-commit
+pre-commit install
+```
+
 Every change lands through a PR to `main`, one Claude window per task:
 
 1. `/cr-interview:create-todo`: add a task to the "Project backlog" issue.
 2. `/cr-interview:implement-task`: build it in a worktree (`.worktrees/<slug>`) and open a PR.
 3. `/cr-interview:merge-pr`: squash-merge, clean up, check off the todo, and pull `main`.
+
+Running:
+
+- `/cr-interview:start-application`: start Postgres, the backend, and the frontend for the current checkout or worktree, on free ports if another worktree holds 3000 or 8000. Logs go to `.run/`.
 
 Database:
 

@@ -29,7 +29,7 @@ frontend/           Vite + React + TypeScript (react-ts template; keep it small)
     types.ts        `Product { id: number; name: string }`
     App.test.tsx    Vitest + React Testing Library, `fetch` mocked
     setupTests.ts   jest-dom matchers, cleanup after each test
-  vite.config.ts    dev server on 3000, proxy /api -> http://localhost:8000, Vitest (jsdom)
+  vite.config.ts    dev server on 3000, proxy /api -> $API_URL or http://localhost:8000, Vitest (jsdom)
   package.json      scripts: dev, build, lint (oxlint), format (prettier --write src), typecheck (tsc -b), test (vitest)
 db/
   migrations/
@@ -38,7 +38,7 @@ docker-compose.yml  one service: postgres:16, db/user/password all "products", p
 .pre-commit-config.yaml  hooks on every commit: whitespace/YAML checks, ruff, pytest, oxlint, prettier, tsc, vitest
 ```
 
-Repo tooling: `plugins/cr-interview/` (skills), `.claude-plugin/marketplace.json` (marketplace manifest), `.github/pull_request_template.md`, `.worktrees/` (gitignored task worktrees).
+Repo tooling: `plugins/cr-interview/` (skills), `.claude-plugin/marketplace.json` (marketplace manifest), `.github/pull_request_template.md`, `.worktrees/` (gitignored task worktrees), `.run/` (gitignored server logs and PIDs from `start-application`).
 
 Design choices:
 - Plain SQL with psycopg, no ORM. Two queries do not justify SQLAlchemy, and plain SQL is easier to extend.
@@ -82,6 +82,11 @@ Applies to markdown, code comments, issues, PR descriptions, and commit messages
 2. Tests first or alongside. Run them red, implement, run green. Small commits at each green step, on the task's feature branch.
 3. Commits run the pre-commit hooks. If a commit fails, read the hook output, fix the cause (re-stage files the hooks auto-fixed), and commit again. Never use `--no-verify`.
 4. After each step, one line on what changed and why.
+
+## Running and debugging
+
+- `/cr-interview:start-application` starts Postgres, the backend, and the frontend for the current checkout or worktree. It reuses this checkout's servers and picks free ports when another worktree holds 3000 or 8000. Its `stop.sh` stops only the servers it started; Docker and Postgres stay up.
+- To debug: run `/cr-interview:start-application`, read the server logs it reports (`.run/backend.log`, `.run/frontend.log`), query data with `/cr-interview:db-query`, and reproduce UI bugs at the URL it reports with Claude in Chrome (`mcp__claude-in-chrome__*` tools).
 
 ## Git and task workflow
 
