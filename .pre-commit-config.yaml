@@ -32,17 +32,17 @@ repos:
         name: oxlint
         entry: npm --prefix frontend run lint
         language: unsupported
-        files: ^frontend/src/
+        files: ^frontend/
         pass_filenames: false
       - id: frontend-format
         name: prettier
         entry: npm --prefix frontend run format
         language: unsupported
-        files: ^frontend/src/
+        files: ^frontend/
         pass_filenames: false
       - id: frontend-typecheck
         name: tsc
         entry: npm --prefix frontend run typecheck
         language: unsupported
-        files: ^frontend/src/
+        files: ^frontend/
         pass_filenames: false
