@@ -53,7 +53,7 @@ cd backend
 uv run uvicorn app.main:app --reload --port 8000
 ```
 
-API: `GET /products`, `POST /products` (body `{"name": "P1"}`). Docs at http://localhost:8000/docs.
+API: `GET /products`, `POST /products` (body `{"name": "P1", "popularity": 5}`, popularity optional, default 0), `GET /products/search?prefix=p` (case-insensitive name prefix, most popular first). Docs at http://localhost:8000/docs.
 
 Tests: `cd backend && uv run pytest`
 
@@ -78,6 +78,7 @@ Open http://localhost:3000, create a product named `P1`, and confirm it stays in
 ```sh
 curl -s -X POST localhost:8000/products -H 'content-type: application/json' -d '{"name":"P1"}'
 curl -s localhost:8000/products
+curl -s 'localhost:8000/products/search?prefix=p'
 ```
 
 ## Notes

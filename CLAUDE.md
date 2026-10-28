@@ -5,8 +5,8 @@ React frontend, Python FastAPI backend, Postgres database. Runs locally.
 ## Scope
 
 - Frontend: simple UI that lists products and lets the user create one.
-- Backend: API to list products and create a product.
-- Database: Postgres table `products` with `id` (auto-generated PK) and `name` (string, required). No other columns until a task adds one.
+- Backend: API to list products, create a product, and search products by name prefix.
+- Database: Postgres table `products` with `id` (auto-generated PK), `name` (string, required), and `popularity` (int, default 0, higher is more popular). No other columns until a task adds one.
 - README has these six headings in this order: Prerequisites, Database setup, Start backend, Start frontend, Verify, Notes. Keep its commands true.
 
 ## Stack and layout
@@ -19,9 +19,12 @@ backend/            Python 3.15+, uv, FastAPI, uvicorn, psycopg (3), pytest, ruf
     main.py         FastAPI app, routes
     db.py           connection + queries (plain SQL, no ORM)
     models.py       pydantic request/response models
+    trie.py         in-memory name prefix index for search, built at startup
     migrate.py      applies db/migrations/*.sql in order, idempotently
   tests/
-    test_products.py   API tests against a real Postgres (docker) using TestClient
+    test_products.py   API tests using TestClient, db layer faked
+    test_trie.py       ProductTrie unit tests
+    test_schema.py     schema checks against a real Postgres (docker)
   pyproject.toml    deps, ruff config
 frontend/           Vite + React + TypeScript (react-ts template; keep it small), oxlint, Prettier, Vitest
   src/
@@ -34,6 +37,7 @@ frontend/           Vite + React + TypeScript (react-ts template; keep it small)
 db/
   migrations/
     V001__create_products.sql
+    V002__add_products_popularity.sql
 docker-compose.yml  one service: postgres:16, db/user/password all "products", port 5432, volume pgdata
 .pre-commit-config.yaml  hooks on every commit: whitespace/YAML checks, ruff, pytest, oxlint, prettier, tsc, vitest
 ```
