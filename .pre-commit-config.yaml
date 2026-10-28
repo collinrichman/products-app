@@ -46,3 +46,9 @@ repos:
         language: unsupported
         files: ^frontend/
         pass_filenames: false
+      - id: frontend-test
+        name: vitest
+        entry: npm --prefix frontend test -- --run
+        language: unsupported
+        files: ^frontend/
+        pass_filenames: false
