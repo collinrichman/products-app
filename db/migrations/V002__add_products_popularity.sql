@@ -1,0 +1,1 @@
+ALTER TABLE products ADD COLUMN popularity INT NOT NULL DEFAULT 0;

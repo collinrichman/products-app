@@ -13,10 +13,11 @@ def get_conn() -> psycopg.Connection[dict]:
 
 
 def list_products(conn: psycopg.Connection[dict]) -> list[dict]:
-    return conn.execute("SELECT id, name FROM products ORDER BY id").fetchall()
+    return conn.execute("SELECT id, name, popularity FROM products ORDER BY id").fetchall()
 
 
-def create_product(conn: psycopg.Connection[dict], name: str) -> dict:
+def create_product(conn: psycopg.Connection[dict], name: str, popularity: int) -> dict:
     return conn.execute(
-        "INSERT INTO products (name) VALUES (%s) RETURNING id, name", (name,)
+        "INSERT INTO products (name, popularity) VALUES (%s, %s) RETURNING id, name, popularity",
+        (name, popularity),
     ).fetchone()

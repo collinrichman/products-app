@@ -3,6 +3,7 @@ from pydantic import BaseModel, field_validator
 
 class ProductCreate(BaseModel):
     name: str
+    popularity: int = 0
 
     @field_validator("name")
     @classmethod
@@ -16,3 +17,4 @@ class ProductCreate(BaseModel):
 class Product(BaseModel):
     id: int
     name: str
+    popularity: int
