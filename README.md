@@ -53,7 +53,7 @@ cd backend
 uv run uvicorn app.main:app --reload --port 8000
 ```
 
-API: `GET /products`, `POST /products` (body `{"name": "P1", "popularity": 5}`, popularity optional, default 0), `GET /products/search?prefix=p` (case-insensitive name prefix, most popular first). Docs at http://localhost:8000/docs.
+API: `GET /products`, `POST /products` (body `{"name": "P1", "popularity": 5}`, popularity optional, default 0), `GET /products/search?prefix=p` (case-insensitive name prefix, top 100 by popularity). Docs at http://localhost:8000/docs.
 
 Tests: `cd backend && uv run pytest`
 

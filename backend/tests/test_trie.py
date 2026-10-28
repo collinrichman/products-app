@@ -53,3 +53,25 @@ def test_insert_adds_product_in_rank_order():
     trie.insert(hatchet)
 
     assert trie.search("ha") == [HAMMER, hatchet, HAND_SAW]
+
+
+def test_insert_keeps_only_top_limit_per_prefix():
+    trie = ProductTrie([HAMMER, HAND_SAW], limit=2)
+    hatchet = product(4, "Hatchet", 3)
+    halberd = product(5, "Halberd", 1)
+
+    trie.insert(hatchet)
+    trie.insert(halberd)
+
+    assert trie.search("ha") == [HAMMER, hatchet]
+    assert trie.search("hal") == [halberd]
+
+
+def test_limit_defaults_to_100():
+    trie = ProductTrie([product(id, f"Bolt {id}", id) for id in range(1, 102)])
+
+    results = trie.search("bolt")
+
+    assert len(results) == 100
+    assert results[0]["id"] == 101
+    assert results[-1]["id"] == 2

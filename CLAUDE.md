@@ -19,7 +19,7 @@ backend/            Python 3.15+, uv, FastAPI, uvicorn, psycopg (3), pytest, ruf
     main.py         FastAPI app, routes
     db.py           connection + queries (plain SQL, no ORM)
     models.py       pydantic request/response models
-    trie.py         in-memory name prefix index for search, built at startup
+    trie.py         in-memory name prefix index for search (top 100 per prefix), built at startup
     migrate.py      applies db/migrations/*.sql in order, idempotently
   tests/
     test_products.py   API tests using TestClient, db layer faked

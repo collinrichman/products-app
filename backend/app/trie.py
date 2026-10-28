@@ -13,10 +13,11 @@ class _Node:
 
 
 class ProductTrie:
-    """Case-insensitive name prefix index. Each node holds its matches, most popular first."""
+    """Case-insensitive name prefix index. Each node holds its top `limit` matches by popularity."""
 
-    def __init__(self, products: list[dict] | None = None) -> None:
+    def __init__(self, products: list[dict] | None = None, limit: int = 100) -> None:
         self._root = _Node()
+        self._limit = limit
         self._lock = threading.Lock()
         for product in products or []:
             self.insert(product)
@@ -27,6 +28,8 @@ class ProductTrie:
             for char in product["name"].lower():
                 node = node.children.setdefault(char, _Node())
                 insort(node.products, product, key=_rank)
+                if len(node.products) > self._limit:
+                    node.products.pop()
 
     def search(self, prefix: str) -> list[dict]:
         """O(len(prefix)) walk to the prefix node, then a copy of its matches."""
