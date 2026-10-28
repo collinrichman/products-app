@@ -78,6 +78,8 @@ npm run dev
 
 Serves http://localhost:3000 and proxies `/api` to port 8000.
 
+Tests: `cd frontend && npm test -- --run`
+
 ## Verify
 
 Open http://localhost:3000, create a product named `P1`, and confirm it stays in the list after a refresh. Or:
@@ -91,7 +93,7 @@ curl -s localhost:8000/products
 
 - Backend is Python (FastAPI) instead of Java Spring Boot. I use python daily at my current job.
 - Built with Claude Code.
-- Lint: ruff (Python), oxlint, Prettier, and tsc (frontend). Run every hook on every file with `pre-commit run --all-files`. The pytest hook needs the database up.
+- Lint: ruff (Python), oxlint, Prettier, and tsc (frontend). Hooks also run pytest and Vitest. Run every hook on every file with `pre-commit run --all-files`. The pytest hook needs the database up.
 
 ## Contributing
 
