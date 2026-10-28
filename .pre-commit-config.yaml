@@ -29,7 +29,7 @@ repos:
 
       # Scripts live in frontend/package.json.
       - id: frontend-lint
-        name: eslint
+        name: oxlint
         entry: npm --prefix frontend run lint
         language: unsupported
         files: ^frontend/src/

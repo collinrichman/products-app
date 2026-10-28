@@ -23,17 +23,17 @@ backend/            Python 3.15+, uv, FastAPI, uvicorn, psycopg (3), pytest, ruf
   tests/
     test_products.py   API tests against a real Postgres (docker) using TestClient
   pyproject.toml    deps, ruff config
-frontend/           Vite + React + TypeScript (react-ts template; keep it small), ESLint, Prettier
+frontend/           Vite + React + TypeScript (react-ts template; keep it small), oxlint, Prettier
   src/
     App.tsx         list + create form, fetch('/api/products')
     types.ts        `Product { id: number; name: string }`
   vite.config.ts    dev server on 3000, proxy /api -> http://localhost:8000
-  package.json      scripts: dev, build, lint (eslint), format (prettier --write src), typecheck (tsc -b)
+  package.json      scripts: dev, build, lint (oxlint), format (prettier --write src), typecheck (tsc -b)
 db/
   migrations/
     V001__create_products.sql
 docker-compose.yml  one service: postgres:16, db/user/password all "products", port 5432, volume pgdata
-.pre-commit-config.yaml  hooks on every commit: whitespace/YAML checks, ruff, pytest, eslint, prettier, tsc
+.pre-commit-config.yaml  hooks on every commit: whitespace/YAML checks, ruff, pytest, oxlint, prettier, tsc
 ```
 
 Repo tooling: `plugins/cr-interview/` (skills), `.claude-plugin/marketplace.json` (marketplace manifest), `.github/pull_request_template.md`, `.worktrees/` (gitignored task worktrees).
@@ -44,7 +44,7 @@ Design choices:
 - Tests hit a real Postgres via docker, not mocks.
 - Frontend is TypeScript (Vite react-ts template), one component, one `Product` type, no state library, no CSS beyond what Vite ships.
 - Vite proxies `/api` to the backend so no CORS config is needed.
-- Ruff lints and formats Python (replaces flake8, isort, black). ESLint and Prettier do the same for the frontend. `pre-commit` runs them plus pytest on each commit.
+- Ruff lints and formats Python (replaces flake8, isort, black). oxlint and Prettier do the same for the frontend, and TypeScript 7 (`tsc`) type-checks it. `pre-commit` runs them plus pytest on each commit.
 
 ## Commands
 
