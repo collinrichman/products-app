@@ -43,7 +43,6 @@ Repo tooling: `plugins/cr-interview/` (skills), `.claude-plugin/marketplace.json
 Design choices:
 - Plain SQL with psycopg, no ORM. Two queries do not justify SQLAlchemy, and plain SQL is easier to extend.
 - Migrations are numbered SQL files applied by a tiny Python runner that tracks applied files in a `schema_migrations` table. Flyway-style, hand-rolled in ~30 lines. Files use Flyway's `V<n>__<name>.sql` naming so Flyway can replace the runner later. Adding a column is: new file, run migrate. Additive migrations (nullable column) are backward compatible, so code can roll back without the schema; drops and renames take two deploys.
-- Backend tests hit a real Postgres via docker, not mocks. Frontend tests mock `fetch`.
 - Frontend is TypeScript (Vite react-ts template), one component, one `Product` type, no state library, no CSS beyond what Vite ships.
 - Vite proxies `/api` to the backend so no CORS config is needed.
 - Ruff lints and formats Python (replaces flake8, isort, black). oxlint and Prettier do the same for the frontend, and TypeScript 7 (`tsc`) type-checks it. `pre-commit` runs them plus pytest and Vitest on each commit.
